@@ -17,7 +17,7 @@ Usage
 #include "quicksort.h"
 
 int size = 100;
-int my_ints = new int[size];
+int* my_ints = new int[size];
 
 /* do some stuff */
 
