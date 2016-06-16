@@ -74,5 +74,7 @@ int main() {
 
   cout << "HEAPSORT TIME: " << 1000.0 * (t1 - t0) / CLOCKS_PER_SEC << endl;
 
+  delete to_sort;
+
   return 0;
 }
