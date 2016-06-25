@@ -42,7 +42,7 @@ void real_qsort(T* to_sort, const unsigned int& left, const unsigned int& right,
 
   bool unclean = false;
 
-  for(int i = left; i < right; i++) {
+  for(unsigned int i = left; i < right; i++) {
     if(to_sort[i] > to_sort[i + 1]) {
       unclean = true;
       break;
