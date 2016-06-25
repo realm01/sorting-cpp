@@ -26,7 +26,7 @@
 using namespace std;
 
 int main() {
-  const unsigned int count = 1000000;
+  const unsigned int count = 10000000;
 
   float* to_sort = new float[count];
 
@@ -37,7 +37,7 @@ int main() {
   srand((unsigned)time(NULL));
 
   for(unsigned int i = 0; i < count; i++)
-    to_sort[i] = rand() % 21;
+    to_sort[i] = rand();
 
   #ifdef PRINT_STUFF
   for(int i = 0; i < count; i++)
@@ -47,7 +47,7 @@ int main() {
   #endif
 
   clock_t t0 = clock();
-  qsort<float>(to_sort, count);
+  qsort<float>(to_sort, count, 12);
   clock_t t1 = clock();
 
   #ifdef PRINT_STUFF

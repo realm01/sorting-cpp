@@ -14,15 +14,11 @@
 * GNU General Public License for more details.
 */
 
-#include <iostream>
-
-// #define DEBUG
-
-using namespace std;
+#include <thread>
 
 template <typename T>
-void qsort(T* to_sort, const unsigned int& size) {
-  real_qsort(to_sort, 0, size - 1);
+void qsort(T* to_sort, const unsigned int& size, const unsigned int& threads) {
+  real_qsort(to_sort, 0, size - 1, 1, threads);
 }
 
 template <typename T>
@@ -33,27 +29,15 @@ void qswap(T* to_sort, const unsigned int& left, const unsigned int& right) {
 }
 
 template <typename T>
-void real_qsort(T* to_sort, const unsigned int& left, const unsigned int& right) {
+void real_qsort(T* to_sort, const unsigned int& left, const unsigned int& right, unsigned int layer, const unsigned int& threads) {
   if(left >= right)
     return void();
-
-  #ifdef DEBUG
-    cout << "LEFT : " << left << " RIGHT : " << right << endl;
-  #endif
 
   unsigned int pivot = right;
 
   for(int i = right - 1; i > ((int)left) - 1; i--) {
-    #ifdef DEBUG
-      cout << "PIVOT : " << pivot << "(" << to_sort[pivot] << ")" << " i : " << i << "(" << to_sort[i] << ")" << endl;
-    #endif
-    if(to_sort[i] > to_sort[right]) {
-      #ifdef DEBUG
-        cout << "SWITCHING" << endl;
-      #endif
-
+    if(to_sort[i] > to_sort[right])
       qswap<T>(to_sort, i, --pivot);
-    }
   }
 
   bool unclean = false;
@@ -69,8 +53,25 @@ void real_qsort(T* to_sort, const unsigned int& left, const unsigned int& right)
     return void();
 
   qswap<T>(to_sort, right, pivot);
-  if(pivot > 1)
-    real_qsort(to_sort, left, pivot - 1);
-  if(pivot < right - 1)
-    real_qsort(to_sort, pivot + 1, right);
+
+  bool do_threading = false;
+  if((2 ^ layer) <= threads)
+    do_threading = true;
+
+  if(pivot > 1) {
+    if(do_threading) {
+      std::thread t_left(real_qsort<T>, to_sort, left, pivot - 1, ++(layer), threads);
+      t_left.join();
+    }else{
+      real_qsort(to_sort, left, pivot - 1, ++(layer), threads);
+    }
+  }
+  if(pivot < right - 1) {
+    if(do_threading) {
+      std::thread t_right(real_qsort<T>, to_sort, pivot + 1, right, ++(layer), threads);
+      t_right.join();
+    }else{
+      real_qsort(to_sort, pivot + 1, right, ++(layer), threads);
+    }
+  }
 }
