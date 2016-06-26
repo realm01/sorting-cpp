@@ -33,6 +33,13 @@ qsort(T*, int);   # quicksort
 hsort(T*, int);   # heapsort
 ```
 
+Compile
+-------
+`bubblesort` and `heapsort` can be compiled normally without any additional compiler parameters. Although for `quicksort` I use c++11 threads, to imporove the performance further therefore it requires additional compiler parameters:
+```sh
+$ g++ -std=c++11 -Wall -O3 quickmain.cpp -pthread
+```
+
 Performance
 -----------
 Here are some the results of some test runs I made:
