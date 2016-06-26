@@ -52,7 +52,7 @@ int main() {
   #endif
 
   clock_t t0 = clock();
-  qsort<float>(to_sort, count, 12);
+  qsort<float>(to_sort, count, 6);
   clock_t t1 = clock();
 
   #ifdef PRINT_STUFF
