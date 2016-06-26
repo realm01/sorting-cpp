@@ -36,8 +36,13 @@ int main() {
 
   srand((unsigned)time(NULL));
 
+<<<<<<< HEAD
   for(unsigned int i = 0; i < count; i++)
     to_sort[i] = rand();
+=======
+  for(int i = 0; i < count; i++)
+    to_sort[i] = rand() % 21;
+>>>>>>> parent of f5ebed2... Comparison between unsigned and signed, memory management
 
   #ifdef PRINT_STUFF
   for(int i = 0; i < count; i++)
@@ -62,7 +67,7 @@ int main() {
 
   bool integrity = true;
 
-  for(unsigned int i = 0; i < count - 1; i++) {
+  for(int i = 0; i < count - 1; i++) {
     if(to_sort[i] > to_sort[i + 1])
       integrity = false;
   }
@@ -73,8 +78,6 @@ int main() {
     cout << "array to_sort is NOT ordered" << endl;
 
   cout << "QUICKSORT TIME: " << 1000.0 * (t1 - t0) / CLOCKS_PER_SEC << endl;
-
-  delete to_sort;
 
   return 0;
 }
