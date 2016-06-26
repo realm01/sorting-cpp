@@ -15,10 +15,11 @@
 */
 
 #include <thread>
+#include <cmath>
 
 template <typename T>
 void qsort(T* to_sort, const unsigned int& size, const unsigned int& threads) {
-  real_qsort(to_sort, 0, size - 1, 1, threads);
+  real_qsort(to_sort, 0, size - 1, 0, threads);
 }
 
 template <typename T>
@@ -55,23 +56,29 @@ void real_qsort(T* to_sort, const unsigned int& left, const unsigned int& right,
   qswap<T>(to_sort, right, pivot);
 
   bool do_threading = false;
-  if((2 ^ layer) <= threads)
+  if(pow(2, layer) <= threads)
     do_threading = true;
+
+  std::thread t_left;
+  std::thread t_right;
 
   if(pivot > 1) {
     if(do_threading) {
-      std::thread t_left(real_qsort<T>, to_sort, left, pivot - 1, ++(layer), threads);
-      t_left.join();
+      t_left = std::thread(real_qsort<T>, to_sort, left, pivot - 1, layer + 1, threads);
     }else{
       real_qsort(to_sort, left, pivot - 1, ++(layer), threads);
     }
   }
   if(pivot < right - 1) {
     if(do_threading) {
-      std::thread t_right(real_qsort<T>, to_sort, pivot + 1, right, ++(layer), threads);
-      t_right.join();
+      t_right = std::thread(real_qsort<T>, to_sort, pivot + 1, right, layer + 1, threads);
     }else{
       real_qsort(to_sort, pivot + 1, right, ++(layer), threads);
     }
   }
+
+  if(t_left.joinable())
+    t_left.join();
+  if(t_right.joinable())
+    t_right.join();
 }
