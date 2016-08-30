@@ -19,14 +19,14 @@
 #include <cstdlib>
 #include <time.h>
 
-#define PRINT_STUFF
+// #define PRINT_STUFF
 
 #include "mergesort.h"
 
 using namespace std;
 
 int main() {
-  const unsigned int count = 10;
+  const unsigned int count = 1000;
 
   float* to_sort = new float[count];
 
