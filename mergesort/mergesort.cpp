@@ -86,46 +86,20 @@ T** real_msort(T** to_sort, const unsigned int& size, const unsigned int& begin,
   }
 
   std::cout << "sorting remaing right" << std::endl;
-
-  T *un_1 = NULL, *un_2 = NULL;
   for(unsigned int i = 0; i < size - size / 2; i++) {
-    if(right[i] != NULL) {
-      if(un_1 == NULL) {
-        un_1 = right[i];
-      }else{
-        un_2 = right[i];
-        break;
-      }
-    }
+    if(right[i] != NULL) sorted[counter++] = right[i];
   }
 
-  if(un_1 != NULL) sorted[counter++] = un_1;
-  if(un_2 != NULL) sorted[counter++] = un_2;
-
-  un_1 = NULL;
-  un_2 = NULL;
-
-  std::cout << "sorting remaing left: " << left << std::endl;
-
+  std::cout << "sorting remaing left" << std::endl;
   for(unsigned int i = 0; i < size / 2; i++) {
-    if(left[i] != NULL) {
-      if(un_1 == NULL) {
-        std::cout << "assigning un_1: " << std::endl;
-        un_1 = left[i];
-      }else{
-        std::cout << "assigning un_2" << std::endl;
-        un_2 = left[i];
-        break;
-      }
-    }
+    if(left[i] != NULL) sorted[counter++] = left[i];
   }
-
-  if(un_1 != NULL) sorted[counter++] = un_1;
-  if(un_2 != NULL) sorted[counter++] = un_2;
 
   std::cout << "-----" << std::endl;
   for(unsigned int i = 0; i < size; i++) {
-    std::cout << sorted[i] << std::endl;
+    std::cout << sorted[i] << " : " << (sorted[i] == NULL ? 0 : *(sorted[i])) << std::endl;
+    if(sorted[i] == NULL)
+      std::cout << "      !!!!!!!!!!!! SORTED HAS NULL MEMBERS !!!!!!!!!!!!!!" << std::endl;
   }
 
   return sorted;
