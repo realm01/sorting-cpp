@@ -26,7 +26,7 @@
 using namespace std;
 
 int main() {
-  const unsigned int count = 1000;
+  const unsigned int count = 100000;
 
   float* to_sort = new float[count];
 
