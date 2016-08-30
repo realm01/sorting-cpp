@@ -20,11 +20,13 @@ template <typename T>
 T** real_msort(T** to_sort, const unsigned int& size, const unsigned int& begin, const unsigned int& end) {
   T **left, **right;
 
-  std::cout << "new real_msort" << std::endl;
+  std::cout << "new real_msort: " << size << std::endl;
 
   if(size > 1) {
+    std::cout << "start left" << std::endl;
     left = real_msort(to_sort, size / 2, begin, begin + size / 2 - 1);
     std::cout << "finished left" << std::endl;
+    std::cout << "start right" << std::endl;
     right = real_msort(to_sort, size - size / 2, begin + size / 2, end);
     std::cout << "finished right" << std::endl;
   }else{
@@ -51,12 +53,15 @@ T** real_msort(T** to_sort, const unsigned int& size, const unsigned int& begin,
       continue;
 
     bool did_operations = false;
+    std::cout << "LEFT: " << left[i] << " COUNTER: " << counter << std::endl;
 
     for(unsigned int j = 0; j < size - size / 2; j++) {
       if(right[j] == NULL)
         continue;
 
       did_operations = true;
+
+      std::cout << " RIGHT: " << right[j] << std::endl;
 
       if(*(left[i]) <= *(right[j])) {
         std::cout << "left is smaller" << std::endl;
@@ -66,8 +71,8 @@ T** real_msort(T** to_sort, const unsigned int& size, const unsigned int& begin,
         break;
       }else{
         std::cout << "right is smaller" << std::endl;
-        sorted[counter] = right[i];
-        right[i] = NULL;
+        sorted[counter] = right[j];
+        right[j] = NULL;
         counter++;
       }
     }
@@ -80,23 +85,47 @@ T** real_msort(T** to_sort, const unsigned int& size, const unsigned int& begin,
     }
   }
 
+  std::cout << "sorting remaing right" << std::endl;
+
+  T *un_1 = NULL, *un_2 = NULL;
   for(unsigned int i = 0; i < size - size / 2; i++) {
     if(right[i] != NULL) {
-      sorted[counter] = right[i];
-      counter++;
+      if(un_1 == NULL) {
+        un_1 = right[i];
+      }else{
+        un_2 = right[i];
+        break;
+      }
     }
   }
+
+  if(un_1 != NULL) sorted[counter++] = un_1;
+  if(un_2 != NULL) sorted[counter++] = un_2;
+
+  un_1 = NULL;
+  un_2 = NULL;
+
+  std::cout << "sorting remaing left: " << left << std::endl;
 
   for(unsigned int i = 0; i < size / 2; i++) {
     if(left[i] != NULL) {
-      sorted[counter] = left[i];
-      counter++;
+      if(un_1 == NULL) {
+        std::cout << "assigning un_1: " << std::endl;
+        un_1 = left[i];
+      }else{
+        std::cout << "assigning un_2" << std::endl;
+        un_2 = left[i];
+        break;
+      }
     }
   }
 
+  if(un_1 != NULL) sorted[counter++] = un_1;
+  if(un_2 != NULL) sorted[counter++] = un_2;
+
   std::cout << "-----" << std::endl;
   for(unsigned int i = 0; i < size; i++) {
-    std::cout << *(sorted[i]) << std::endl;
+    std::cout << sorted[i] << std::endl;
   }
 
   return sorted;
