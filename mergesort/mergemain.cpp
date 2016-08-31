@@ -26,7 +26,7 @@
 using namespace std;
 
 int main() {
-  const unsigned int count = 100000;
+  const unsigned int count = 10000;
 
   float* to_sort = new float[count];
 
@@ -51,13 +51,13 @@ int main() {
   #endif
 
   clock_t t0 = clock();
-  msort<float>(to_sort, count);
+  float* sorted_arr = msort<float>(to_sort, count);
   clock_t t1 = clock();
 
   #ifdef PRINT_STUFF
   cout << "|";
   for(unsigned int i = 0; i < count; i++)
-    cout << to_sort[i] << "|";
+    cout << sorted_arr[i] << "|";
 
   cout << endl;
 
@@ -67,14 +67,14 @@ int main() {
   bool integrity = true;
 
   for(unsigned int i = 0; i < count - 1; i++) {
-    if(to_sort[i] > to_sort[i + 1])
+    if(sorted_arr[i] > sorted_arr[i + 1])
       integrity = false;
   }
 
   if(integrity)
-    cout << "to_sort is OK" << endl;
+    cout << "sorted_arr is OK" << endl;
   else
-    cout << "array to_sort is NOT ordered" << endl;
+    cout << "array sorted_arr is NOT ordered" << endl;
 
   cout << "MERGESORT TIME: " << 1000.0 * (t1 - t0) / CLOCKS_PER_SEC << endl;
 
