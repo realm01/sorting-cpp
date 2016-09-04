@@ -19,7 +19,7 @@
 #include <cstdlib>
 #include <time.h>
 
-#define PRINT_STUFF
+// #define PRINT_STUFF
 
 #include "bitonicsort.h"
 
