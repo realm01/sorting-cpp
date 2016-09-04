@@ -1,5 +1,13 @@
 #include <iostream>
 
+/*
+https://en.wikipedia.org/wiki/Bitonic_sorter
+
+Explanation:
+The goal of bitonic sort is to create a bitonic sequence out of a given number of elements
+and then merge them thogether so that they are sorted eighter ascending or descending
+*/
+
 template<typename T>
 void bitonic_sort(T* to_sort, const unsigned int& left, const unsigned int& right, const bool dir) {
   const unsigned int size = (right - left) + 1;
