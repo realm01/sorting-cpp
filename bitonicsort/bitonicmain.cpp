@@ -26,7 +26,8 @@
 using namespace std;
 
 int main() {
-  const unsigned int count = 65536;
+  // you can only sort 2^n elements
+  const unsigned int count = 1048576;
 
   float* to_sort = new float[count];
 
