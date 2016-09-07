@@ -6,6 +6,14 @@ https://en.wikipedia.org/wiki/Bitonic_sorter
 Explanation:
 The goal of bitonic sort is to create a bitonic sequence out of a given number of elements
 and then merge them thogether so that they are sorted eighter ascending or descending
+
+Because you always generate a bitonic sequence out of the divided array you can only
+sort 2^n elements. EG. when you have 10 you will not be able to create a bitonic sequence on
+the 2nd iteration:
+    10
+ 5     5
+2 3   2 3     <-- not a bitonic sequence because there are not the same amount of
+                  elements on both side
 */
 
 template<typename T>
