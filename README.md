@@ -1,11 +1,13 @@
 Sorting in CPP
 ==============
 
-I implemented these 3 sorting algorithms in c++:
+I implemented these sorting algorithms in c++:
 
   - bubblesort
   - heapsort
   - quicksort
+  - mergesort
+  - bitonicsort (not parallelized)
 
 Why?
 ----
