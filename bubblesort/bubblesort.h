@@ -20,6 +20,6 @@
 template <typename T>
 void bsort(T* to_sort, const unsigned int& size);
 
-#include "bubblesort.cpp"
+#include "bubblesort.tpp"
 
 #endif

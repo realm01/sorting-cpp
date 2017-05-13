@@ -26,6 +26,6 @@ void swap(T* to_sort, const unsigned int& left, const unsigned int& right);
 template <typename T>
 void real_qsort(T* to_sort, const unsigned int& left, const unsigned int& right, unsigned int layer, const unsigned int& threads);
 
-#include "quicksort.cpp"
+#include "quicksort.tpp"
 
 #endif

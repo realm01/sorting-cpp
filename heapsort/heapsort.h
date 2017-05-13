@@ -28,6 +28,6 @@ void heapify(T* to_sort, const unsigned int& size);
 template <typename T>
 void swap(T* to_sort, const unsigned int& a, const unsigned int& b);
 
-#include "heapsort.cpp"
+#include "heapsort.tpp"
 
 #endif

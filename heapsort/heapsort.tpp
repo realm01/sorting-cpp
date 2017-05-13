@@ -17,7 +17,6 @@
 #include <iostream>
 #include <math.h>
 
-#include "heapsort.h"
 
 using namespace std;
 
