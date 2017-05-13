@@ -17,8 +17,14 @@
 #ifndef __BUBBLESORT_H
 #define __BUBBLESORT_H
 
-template <typename T>
-void bsort(T* to_sort, const unsigned int& size);
+namespace Realmar {
+    namespace Sorting {
+        namespace Bubble {
+            template<typename T>
+            void bsort(T *to_sort, const unsigned int &size);
+        }
+    }
+}
 
 #include "bubblesort.tpp"
 

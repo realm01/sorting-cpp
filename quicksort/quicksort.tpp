@@ -17,68 +17,76 @@
 #include <thread>
 #include <cmath>
 
-template <typename T>
-void qsort(T* to_sort, const unsigned int& size, const unsigned int& threads) {
-  real_qsort(to_sort, 0, size - 1, 0, threads);
-}
+namespace Realmar {
+    namespace Sorting {
+        namespace Quick {
 
-template <typename T>
-void qswap(T* to_sort, const unsigned int& left, const unsigned int& right) {
-  T tmp = to_sort[left];
-  to_sort[left] = to_sort[right];
-  to_sort[right] = tmp;
-}
+            template<typename T>
+            void qsort(T *to_sort, const unsigned int &size, const unsigned int &threads) {
+                real_qsort(to_sort, 0, size - 1, 0, threads);
+            }
 
-template <typename T>
-void real_qsort(T* to_sort, const unsigned int& left, const unsigned int& right, unsigned int layer, const unsigned int& threads) {
-  if(left >= right)
-    return void();
+            template<typename T>
+            void qswap(T *to_sort, const unsigned int &left, const unsigned int &right) {
+                T tmp = to_sort[left];
+                to_sort[left] = to_sort[right];
+                to_sort[right] = tmp;
+            }
 
-  unsigned int pivot = right;
+            template<typename T>
+            void real_qsort(T *to_sort, const unsigned int &left, const unsigned int &right, unsigned int layer,
+                            const unsigned int &threads) {
+                if (left >= right)
+                    return;
 
-  for(int i = right - 1; i > ((int)left) - 1; i--) {
-    if(to_sort[i] > to_sort[right])
-      qswap<T>(to_sort, i, --pivot);
-  }
+                unsigned int pivot = right;
 
-  bool unclean = false;
+                for (int i = right - 1; i > ((int) left) - 1; i--) {
+                    if (to_sort[i] > to_sort[right])
+                        qswap<T>(to_sort, i, --pivot);
+                }
 
-  for(unsigned int i = left; i < right; i++) {
-    if(to_sort[i] > to_sort[i + 1]) {
-      unclean = true;
-      break;
+                bool unclean = false;
+
+                for (unsigned int i = left; i < right; i++) {
+                    if (to_sort[i] > to_sort[i + 1]) {
+                        unclean = true;
+                        break;
+                    }
+                }
+
+                if (!unclean)
+                    return;
+
+                qswap<T>(to_sort, right, pivot);
+
+                bool do_threading = false;
+                if (pow(2, layer) <= threads)
+                    do_threading = true;
+
+                std::thread t_left;
+                std::thread t_right;
+
+                if (pivot > 1) {
+                    if (do_threading) {
+                        t_left = std::thread(real_qsort<T>, to_sort, left, pivot - 1, layer + 1, threads);
+                    } else {
+                        real_qsort(to_sort, left, pivot - 1, ++(layer), threads);
+                    }
+                }
+                if (pivot < right - 1) {
+                    if (do_threading) {
+                        t_right = std::thread(real_qsort<T>, to_sort, pivot + 1, right, layer + 1, threads);
+                    } else {
+                        real_qsort(to_sort, pivot + 1, right, ++(layer), threads);
+                    }
+                }
+
+                if (t_left.joinable())
+                    t_left.join();
+                if (t_right.joinable())
+                    t_right.join();
+            }
+        }
     }
-  }
-
-  if(!unclean)
-    return void();
-
-  qswap<T>(to_sort, right, pivot);
-
-  bool do_threading = false;
-  if(pow(2, layer) <= threads)
-    do_threading = true;
-
-  std::thread t_left;
-  std::thread t_right;
-
-  if(pivot > 1) {
-    if(do_threading) {
-      t_left = std::thread(real_qsort<T>, to_sort, left, pivot - 1, layer + 1, threads);
-    }else{
-      real_qsort(to_sort, left, pivot - 1, ++(layer), threads);
-    }
-  }
-  if(pivot < right - 1) {
-    if(do_threading) {
-      t_right = std::thread(real_qsort<T>, to_sort, pivot + 1, right, layer + 1, threads);
-    }else{
-      real_qsort(to_sort, pivot + 1, right, ++(layer), threads);
-    }
-  }
-
-  if(t_left.joinable())
-    t_left.join();
-  if(t_right.joinable())
-    t_right.join();
 }

@@ -17,14 +17,23 @@
 #ifndef __QUICKSORT_H
 #define __QUICKSORT_H
 
-template <typename T>
-void qsort(T* to_sort, const unsigned int& size, const unsigned int& threads);
+namespace Realmar {
+    namespace Sorting {
+        namespace Quick {
 
-template <typename T>
-void swap(T* to_sort, const unsigned int& left, const unsigned int& right);
+            template<typename T>
+            void qsort(T *to_sort, const unsigned int &size, const unsigned int &threads);
 
-template <typename T>
-void real_qsort(T* to_sort, const unsigned int& left, const unsigned int& right, unsigned int layer, const unsigned int& threads);
+            template<typename T>
+            void swap(T *to_sort, const unsigned int &left, const unsigned int &right);
+
+            template<typename T>
+            void real_qsort(T *to_sort, const unsigned int &left, const unsigned int &right, unsigned int layer,
+                            const unsigned int &threads);
+
+        }
+    }
+}
 
 #include "quicksort.tpp"
 

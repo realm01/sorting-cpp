@@ -17,16 +17,29 @@
 #ifndef __HEAPSORT_H
 #define __HEAPSORT_H
 
-int getParent(const unsigned int& pos);
-template <typename T>
-void hsort(T* to_sort, const unsigned int& size);
-template <typename T>
-void siftDown(T* to_sort, const unsigned int& start, const unsigned int& end);
-int leftChild(const unsigned int& pos);
-template <typename T>
-void heapify(T* to_sort, const unsigned int& size);
-template <typename T>
-void swap(T* to_sort, const unsigned int& a, const unsigned int& b);
+namespace Realmar {
+    namespace Sorting {
+        namespace Heap {
+
+            int getParent(const unsigned int &pos);
+
+            template<typename T>
+            void hsort(T *to_sort, const unsigned int &size);
+
+            template<typename T>
+            void siftDown(T *to_sort, const unsigned int &start, const unsigned int &end);
+
+            int leftChild(const unsigned int &pos);
+
+            template<typename T>
+            void heapify(T *to_sort, const unsigned int &size);
+
+            template<typename T>
+            void swap(T *to_sort, const unsigned int &a, const unsigned int &b);
+
+        }
+    }
+}
 
 #include "heapsort.tpp"
 

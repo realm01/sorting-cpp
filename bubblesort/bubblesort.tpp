@@ -16,20 +16,22 @@
 
 #include <iostream>
 
-using namespace std;
-
-template <typename T>
-void bsort(T* to_sort, const unsigned int& size) {
-  T t0;
-
-  for(int j = size; j > 0; j--) {
-    for(int i = 0; i < j; i++) {
-      if(to_sort[i] > to_sort[i+1]) {
-        t0 = to_sort[i];
-        to_sort[i] = to_sort[i+1];
-        to_sort[i+1] = t0;
-      }
+namespace Realmar {
+    namespace Sorting {
+        namespace Bubble {
+            template<typename T>
+            void bsort(T *to_sort, const unsigned int &size) {
+                T t0;
+                for (int j = size; j > 0; j--) {
+                    for (int i = 0; i < j; i++) {
+                        if (to_sort[i] > to_sort[i + 1]) {
+                            t0 = to_sort[i];
+                            to_sort[i] = to_sort[i + 1];
+                            to_sort[i + 1] = t0;
+                        }
+                    }
+                }
+            }
+        }
     }
-  }
-
 }

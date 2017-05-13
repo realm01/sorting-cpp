@@ -6,7 +6,7 @@ int main() {
     int* to_sort = Realmar::Common::GenerateRandomArray(length);
     clock_t start_time = clock();
 
-    bitonic_sort<int>(to_sort, 0, length - 1);
+    Realmar::Sorting::Bitonic::bitonic_sort<int>(to_sort, 0, length - 1);
 
     Realmar::Common::EvaluateTime(start_time);
     Realmar::Common::EvaluateArray(to_sort, length);
